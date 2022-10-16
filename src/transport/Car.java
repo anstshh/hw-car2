@@ -13,9 +13,10 @@ public class Car {
     private String regNumber;
     private final  int seatsAmount;
     private boolean summerTyres;
+    private Key key;
 
 
-    public Car(String brand, String model, double volumeOfEngine, String colour, int yearOfProduction, String countryOfOrigin) {
+    public Car(String brand, String model, double volumeOfEngine, String colour, int yearOfProduction, String countryOfOrigin, Key key) {
         if(brand==null) {
             this.brand = "default";
         } else this.brand = brand;
@@ -35,6 +36,11 @@ public class Car {
         if(yearOfProduction==0) {
             this.yearOfProduction = 2000;
         } else this.yearOfProduction = yearOfProduction;
+        if(key==null){
+            this.key = new Key();
+        } else {
+            this.key = key;
+        }
         this.typeOfBody = "седан";
         this.regNumber = "х000хх000";
         this.seatsAmount = 5;
@@ -121,6 +127,14 @@ public class Car {
         summerTyres =! summerTyres;
     }
 
+    public Key getKey() {
+        return key;
+    }
+
+    public void setKey(Key key) {
+        this.key = key;
+    }
+
     public boolean checkCorrectRegNumber(){
         if(regNumber.length()!=9){
             return false;
@@ -132,6 +146,28 @@ public class Car {
         return Character.isDigit(chars[1]) && Character.isDigit(chars[2]) && Character.isDigit(chars[3]) &&
                 Character.isDigit(chars[6]) && Character.isDigit(chars[7]) && Character.isDigit(chars[8]);
 
+    }
+
+    public static class Key {
+        private final boolean remoteRunEngine;
+        private final boolean withoutKetAccess;
+
+        public Key(boolean remoteRunEngine, boolean withoutKetAccess) {
+            this.remoteRunEngine = remoteRunEngine;
+            this.withoutKetAccess = withoutKetAccess;
+        }
+
+        public Key() {
+            this(false,false);
+        }
+
+        public boolean isRemoteRunEngine() {
+            return remoteRunEngine;
+        }
+
+        public boolean isWithoutKetAccess() {
+            return withoutKetAccess;
+        }
     }
 }
 
